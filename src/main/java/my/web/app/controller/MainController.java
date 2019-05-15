@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import javax.validation.Valid;
+import java.util.Map;
 
 @Controller
 public class MainController {
@@ -31,6 +33,12 @@ public class MainController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView add(){
         return new ModelAndView("adduser","user",new User());
+    }
+
+    @RequestMapping(value = "/shalanda",method = RequestMethod.GET)
+    public String shalanda(Model model, @RequestParam(defaultValue = "hello world!") String name){
+        model.addAttribute("name",name);
+        return "shalanda";
     }
 
     @RequestMapping(value = "/add_user", method = RequestMethod.POST)
@@ -94,7 +102,7 @@ public class MainController {
      */
     @RequestMapping(value = "/get_json_user", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public User getJsonUser1(@RequestParam("login") String login){
+    public User getJsonUser1(@RequestParam(value = "login", defaultValue = "yaruha") String login){
         User user = new User();
         user.setLogin(login);
         return user;

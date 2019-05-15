@@ -51,19 +51,14 @@ public class User {
 
         User user = (User) o;
 
-        if (id != user.id) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         return password != null ? password.equals(user.password) : user.password == null;
-
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (login != null ? login.hashCode() : 0);
+        int result = login != null ? login.hashCode() : 0;
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
-
-
 }
